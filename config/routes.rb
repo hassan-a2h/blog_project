@@ -5,5 +5,14 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  root "homepage#index"
+  resource :homepage do
+    collection do
+      get 'user'
+      get 'mod'
+      get 'admin'
+
+    end
+  end
+
+  root "homepages#index"
 end

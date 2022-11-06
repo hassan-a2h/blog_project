@@ -13,6 +13,6 @@ class User < ApplicationRecord
     user: 0,
     mod: 1,
     admin: 2
-  }, _prefix: true
+  }, _prefix: :role
 
 end
