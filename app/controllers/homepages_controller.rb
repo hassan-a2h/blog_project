@@ -1,6 +1,7 @@
 class HomepagesController < ApplicationController
 
   def index
+
     if user_signed_in?
       if current_user.role_admin?
         redirect_to admin_homepage_path
@@ -14,10 +15,13 @@ class HomepagesController < ApplicationController
       end
 
     end
+
+    @posts = Post.all
+
   end
 
   def user
-
+    @posts = Post.all.published_by(current_user.id)
   end
 
   def mod

@@ -1,1 +1,5 @@
 <%= link_to "Sign In", new_user_session_path %>
+
+<%# Only render partial if there is some data. %>
+
+<%= render partial: 'application/post', collection: @posts %>
