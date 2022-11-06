@@ -10,6 +10,10 @@
   </head>
 
   <body>
+    <%= render "application/alerts" %>
+    <% if user_signed_in? %>
+      <p> Hello <%= current_user.user_name %> </p>
+    <% end %>
     <%= yield %>
   </body>
 </html>
