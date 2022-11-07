@@ -61,10 +61,10 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
 
     if @post.destroy
-      redirect_to root_path, notice: "Post Deleted!"
+      redirect_to root_path, notice: 'Post Deleted!'
 
     else
-      redirect_to post_path(@post), alert: "Could not delete Post!"
+      redirect_to post_path(@post), alert: 'Could not delete Post!'
 
     end
   end

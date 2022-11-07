@@ -1,0 +1,7 @@
+
+<%= form_with model: @comment, url: comment_path, method: :patch do |f| %>
+
+  <%= f.text_field :body, size: '60', placeholder: 'comment here' %>
+  <%= f.submit %>
+
+<% end %>

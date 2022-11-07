@@ -21,15 +21,31 @@ class HomepagesController < ApplicationController
   end
 
   def user
+    if session[:post_comments]
+      @post = Post.find_by(id: session[:post_comments])
+      session.delete(:post_comments) # To clear session so that we don't get stuck in loop.
+      redirect_to post_comments_path(@post)
+    end
+
     @posts = Post.published_by(current_user.id)
     @comments = Comment.by_user(current_user.id)
   end
 
   def mod
+    if session[:post_comments]
+      @post = Post.find_by(id: session[:post_comments])
+      redirect_to post_comments_path(@post)
+    end
+
     @posts = Post.all.published_by(current_user.id)
   end
 
   def admin
+    if session[:post_comments]
+      @post = Post.find_by(id: session[:post_comments])
+      redirect_to post_comments_path(@post)
+    end
+
     @posts = Post.all.published_by(current_user.id)
   end
 
