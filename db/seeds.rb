@@ -18,3 +18,8 @@ Post.create(title: "Hello World", body: "Dummy body text ... lorem ipsem", user_
 Post.create(title: "Hello World", body: "Dummy body text ... lorem ipsem", user_id: 2, status: 10)
 Post.create(title: "Hello World", body: "Dummy body text ... lorem ipsem", user_id: 2, status: 10)
 
+Comment.create(body: "Hello World", user_id: 2, post_id: 3)
+Comment.create(body: "Hello World", user_id: 2, post_id: 3)
+Comment.create(body: "Hello World", user_id: 2, post_id: 3)
+Comment.create(body: "Hello World", user_id: 2, post_id: 4)
+Comment.create(body: "Hello World", user_id: 2, post_id: 4)

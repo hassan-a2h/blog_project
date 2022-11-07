@@ -21,7 +21,8 @@ class HomepagesController < ApplicationController
   end
 
   def user
-    @posts = Post.all.published_by(current_user.id)
+    @posts = Post.published_by(current_user.id)
+    @comments = Comment.by_user(current_user.id)
   end
 
   def mod

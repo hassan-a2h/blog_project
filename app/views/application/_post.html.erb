@@ -3,6 +3,7 @@
 <p> <%= post.body %> </p>
 
 <%= link_to "Edit Post", edit_post_path(post) %>
+<%= link_to "Comments", post_comments_path(post) %>
 <%= link_to "Show Post", post_path(post) %>
 
 <hr>

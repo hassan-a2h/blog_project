@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   }
 
   # For Posts
-  resources :posts
+  resources :posts, shallow: true do
+    # For Comments
+    resources :comments
+  end
+
 
   # For Homepage of each user
   resource :homepage do

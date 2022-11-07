@@ -69,6 +69,8 @@ class PostsController < ApplicationController
     end
   end
 
+  # Additional Actions
+
   private
 
   def whitelist_post_params
