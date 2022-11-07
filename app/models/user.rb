@@ -8,12 +8,11 @@ class User < ApplicationRecord
 
   # Associations
   has_many :posts
-
+  has_many :comments
 
   # Validations
   validates :user_name, :role, presence: true
   validates :email, uniqueness: true
-
 
   # Enums
   enum role: {
@@ -21,6 +20,5 @@ class User < ApplicationRecord
     mod: 1,
     admin: 2
   }, _prefix: :role
-
 
 end
