@@ -1,2 +1,8 @@
-<%= render partial: "application/post", object: @post %>
+
+<h3> <%= @post.title %> </h3>
+<p> <%= @post.body %> </p>
+
 <%= link_to "Home", root_path %>
+<%= link_to "Delete Post", post_path(@post), method: :delete, data: { confirm: "Are you sure? " } %>
+
+<hr>

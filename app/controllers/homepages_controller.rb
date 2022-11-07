@@ -25,11 +25,11 @@ class HomepagesController < ApplicationController
   end
 
   def mod
-
+    @posts = Post.all.published_by(current_user.id)
   end
 
   def admin
-
+    @posts = Post.all.published_by(current_user.id)
   end
 
 end

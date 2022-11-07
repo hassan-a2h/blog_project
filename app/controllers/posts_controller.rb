@@ -3,7 +3,8 @@ class PostsController < ApplicationController
   before_action :confirm_sign_in
 
   # Only the owner can edit the post
-  before_action :confirm_user, only: [:edit]
+  before_action :confirm_user, only: [:edit, :destroy]
+
 
   def index
     @posts = Post.all
@@ -58,6 +59,14 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find_by(id: params[:id])
+
+    if @post.destroy
+      redirect_to root_path, notice: "Post Deleted!"
+
+    else
+      redirect_to post_path(@post), alert: "Could not delete Post!"
+
+    end
   end
 
   private

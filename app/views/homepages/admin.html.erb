@@ -1,4 +1,7 @@
 <h1> Hello <%= current_user.user_name %> </h1>
 <p> Role <%= current_user.role %> </p>
 
+<%= link_to "Create Post", new_post_path %>
 <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+
+<%= render partial: 'application/post', collection: @posts %>
