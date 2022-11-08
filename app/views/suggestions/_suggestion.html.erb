@@ -1,0 +1,14 @@
+
+<% suggestions.each do |suggestion| %>
+  <h5> User Id: <%= suggestion.user_id %> </h5>
+  <p> <%= suggestion.body %> </p>
+
+  <% if post.user_id == current_user.id %>
+    <%= link_to "Accept", accept_suggestion_path(suggestion) %>
+  <% end %>
+
+  <% if suggestion.user_id == current_user.id || post.user_id == current_user.id %>
+    <%= link_to "Edit", edit_suggestion_path(suggestion) %>
+    <%= link_to "Remove", suggestion_path(suggestion), method: :delete, data: { confirm: "Are you sure?" } %>
+  <% end %>
+<% end %>

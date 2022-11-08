@@ -1,0 +1,7 @@
+
+<%= form_with model: @suggestion, url: suggestion_path, method: :patch do |f| %>
+
+  <%= f.text_field :body, size: '60', placeholder: 'make a suggestion' %>
+  <%= f.submit %>
+
+<% end %>

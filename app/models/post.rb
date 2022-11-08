@@ -9,6 +9,9 @@ class Post < ApplicationRecord
   # Validations
   validates :title, :body, :status, :user_id, presence: true
 
+  ## temp validation
+  validates :title, uniqueness: true
+
 
   # Enums
   enum status: {

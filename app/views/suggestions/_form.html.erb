@@ -1,0 +1,7 @@
+<%= form_with model: suggestion, url: post_suggestions_path(post) do |f| %>
+
+  <%= f.hidden_field :user_id, value: user_id %>
+  <%= f.text_field :body, size: '60', placeholder: 'make a suggestion' %>
+  <%= f.submit %>
+
+<% end %>

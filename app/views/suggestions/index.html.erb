@@ -1,0 +1,3 @@
+<%= render partial: 'application/post', object: @post %>
+<%= render partial: 'form', locals: { suggestion: @suggestion, post: @post, user_id: current_user.id } %>
+<%= render partial: 'suggestion', locals: { suggestions: @suggestions, post: @post } %>

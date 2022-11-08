@@ -7,6 +7,9 @@ class Comment < ApplicationRecord
   # Validations
   validates :body, :user_id, :post_id, presence: true
 
+  ## temp validation
+  validates :body, uniqueness: true
+
   # Enums
 
 

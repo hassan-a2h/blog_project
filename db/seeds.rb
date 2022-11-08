@@ -24,3 +24,8 @@ Comment.create(body: "Hello World", user_id: 2, post_id: 3)
 Comment.create(body: "Hello World", user_id: 2, post_id: 3)
 Comment.create(body: "Hello World", user_id: 2, post_id: 4)
 Comment.create(body: "Hello World", user_id: 2, post_id: 4)
+
+Suggestion.create(body: "Thanks for this article, maybe improve spelling next time", user_id: 4, post_id: 51)
+Suggestion.create(body: "Thanks for this aticle, maybe improve spelling next time", user_id: 4, post_id: 51)
+Suggestion.create(body: "Thaks for this article, maybe improve spelling next time", user_id: 4, post_id: 51)
+Suggestion.create(body: "Thanks or this article, maybe improve spelling next time", user_id: 4, post_id: 51)

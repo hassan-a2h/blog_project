@@ -27,7 +27,7 @@ class HomepagesController < ApplicationController
       redirect_to post_comments_path(@post)
     end
 
-    @posts = Post.published_by(current_user.id)
+    @posts = Post.where(status: :published)
     @comments = Comment.by_user(current_user.id)
   end
 
@@ -37,7 +37,8 @@ class HomepagesController < ApplicationController
       redirect_to post_comments_path(@post)
     end
 
-    @posts = Post.all.published_by(current_user.id)
+    @posts = Post.where(status: :published)
+    @comments = Comment.all
   end
 
   def admin
@@ -46,7 +47,8 @@ class HomepagesController < ApplicationController
       redirect_to post_comments_path(@post)
     end
 
-    @posts = Post.all.published_by(current_user.id)
+    @posts = Post.where(status: :published)
+    @comments = Comment.all
   end
 
 end

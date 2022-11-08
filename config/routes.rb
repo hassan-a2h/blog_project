@@ -10,6 +10,13 @@ Rails.application.routes.draw do
   resources :posts, shallow: true do
     # For Comments
     resources :comments
+    # For suggestions
+    resources :suggestions do
+      member do
+        get 'accept'
+      end
+    end
+
   end
 
 
