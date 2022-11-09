@@ -28,7 +28,7 @@ class HomepagesController < ApplicationController
     end
 
     @posts = Post.where(status: :published)
-    @comments = Comment.by_user(current_user.id)
+    @comments = Comment.by_user(current_user.id).includes(:post)
   end
 
   def mod

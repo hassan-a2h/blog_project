@@ -7,14 +7,14 @@ class PostsController < ApplicationController
 
 
   def index
-    @posts = Post.all
+    @posts = Post.all.includes(:likes)
   end
 
   def show
     @post = Post.find_by(id: params[:id])
 
     unless @post
-      redirect_to root_path, alert: "Could not find post."
+      redirect_to root_path, alert: 'Could not find post.'
     end
   end
 
@@ -27,11 +27,11 @@ class PostsController < ApplicationController
     @post = Post.new(whitelist_post_params)
 
     if @post.save
-      flash[:notice] = "Post created"
+      flash[:notice] = 'Post created'
       redirect_to post_path(@post)
 
     else
-      flash[:alert] = "Error! Could not save post."
+      flash[:alert] = 'Error! Could not save post.'
       redirect_to root_path
     end
   end
@@ -40,19 +40,17 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @user = current_user
 
-    unless @post
-      redirect_to root_path, alert: "Could not find Post"
-    end
+    redirect_to root_path, alert: 'Could not find Post' unless @post
   end
 
   def update
     @post = Post.find_by(id: params[:id])
 
     if @post.update(whitelist_post_params)
-      redirect_to post_path(@post), notice: "Post Updated"
+      redirect_to post_path(@post), notice: 'Post Updated'
 
     else
-      redirect_to root_path, alert: "Could not update Post!"
+      redirect_to root_path, alert: 'Could not update Post!'
 
     end
   end
@@ -79,14 +77,13 @@ class PostsController < ApplicationController
 
   def confirm_sign_in
     unless user_signed_in?
-      redirect_to root_path, alert: "Action Forbidden!"
+      redirect_to root_path, alert: 'Action Forbidden!'
     end
   end
 
   def confirm_user
     if Post.find_by(id: params[:id]).user_id != current_user.id
-      redirect_to root_path, alert: "Error! Prohibited Action."
+      redirect_to root_path, alert: 'Error! Prohibited Action.'
     end
   end
-
 end

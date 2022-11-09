@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  #  Routing Concerns
+  concern :likeable do
+    resources :likes
+  end
+
   # For Users
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -7,9 +12,9 @@ Rails.application.routes.draw do
   }
 
   # For Posts
-  resources :posts, shallow: true do
+  resources :posts, concerns: [:likeable], shallow: true do
     # For Comments
-    resources :comments
+    resources :comments, concerns: [:likeable]
     # For suggestions
     resources :suggestions do
       member do
