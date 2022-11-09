@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_08_072734) do
+ActiveRecord::Schema.define(version: 2022_11_09_130939) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 2022_11_08_072734) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "reportable_type", null: false
+    t.integer "reportable_id", null: false
+    t.integer "user_id", null: false
+    t.string "message", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable_type_and_reportable_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
   create_table "suggestions", force: :cascade do |t|

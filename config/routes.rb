@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
 
-  #  Routing Concerns
+  ##  Routing Concerns
+  # For Comments
   concern :likeable do
     resources :likes
   end
 
+  # For Reports
+  concern :reportable do
+    resources :reports
+  end
+
+  ## Normal Restful routes, with additional nested routes
   # For Users
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -12,16 +19,16 @@ Rails.application.routes.draw do
   }
 
   # For Posts
-  resources :posts, concerns: [:likeable], shallow: true do
+  resources :posts, concerns: [:likeable, :reportable], shallow: true do
     # For Comments
-    resources :comments, concerns: [:likeable]
+    resources :comments, concerns: [:likeable, :reportable]
+
     # For suggestions
     resources :suggestions do
       member do
         get 'accept'
       end
     end
-
   end
 
 
@@ -31,9 +38,8 @@ Rails.application.routes.draw do
       get 'user'
       get 'mod'
       get 'admin'
-
     end
   end
 
-  root "homepages#index"
+  root 'homepages#index'
 end
