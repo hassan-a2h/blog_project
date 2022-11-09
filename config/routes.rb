@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   ##  Routing Concerns
   # For Comments
   concern :likeable do
-    resources :likes
+    resources :likes, only: [:new]
   end
 
   # For Reports

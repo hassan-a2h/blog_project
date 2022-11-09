@@ -5,14 +5,13 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
-
+  has_many :reports, as: :reportable, dependent: :destroy
 
   # Validations
   validates :title, :body, :status, :user_id, presence: true
 
   ## temp validation
   validates :title, uniqueness: true
-
 
   # Enums
   enum status: {
@@ -21,7 +20,7 @@ class Post < ApplicationRecord
   }, _prefix: :status
 
   # Scopes
-  scope :published_by, -> (id) {
+  scope :published_by, ->(id) {
     where("user_id = ?", id)
    }
 

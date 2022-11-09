@@ -1,0 +1,15 @@
+<% if @post %>
+  <%= render partial: 'application/post', object: @post %>
+
+<% elsif @comment%>
+  <%= render partial: 'comments/comment', object: @comment %>
+<% end %>
+
+<%= form_with model: @report, url: @post ? post_reports_path : comment_reports_path do |f| %>
+
+  <%= f.hidden_field :user_id, value: current_user.id%>
+  <%= f.label :message, "Issue" %> <br>
+  <%= f.text_field :message, placeholder: "This post is inapropriate. " %> <br>
+  <%= f.submit %>
+
+<% end %>
