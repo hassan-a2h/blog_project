@@ -4,4 +4,16 @@
 <%= link_to "Create Post", new_post_path %>
 <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
 
-<%= render partial: 'application/post', collection: @posts %>
+<h2> All Posts </h2>
+<%= render partial: 'application/post', collection: @all_posts %>
+
+<h2> All Comments </h2>
+<%= render partial: 'comments/comment', collection: @all_comments %>
+
+<h2> Reported Posts </h2>
+<%= render partial: 'application/post', collection: @reported_posts %>
+
+<h2> Reported Comments </h2>
+<%= render partial: 'comments/comment', collection: @reported_comments %>
+
+<%# Mod can view Submitted and reported posts, comments %>

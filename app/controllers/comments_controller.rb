@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
 
     redirect_to root_path, alert: 'Prohibited Action!' unless @post
 
-    @comments = Comment.by_post(@post)
+    @comments = Comment.by_post(@post).includes(:user, :likes)
     # To allow user to comment while viewing all comments
     @comment = Comment.new
   end
@@ -79,7 +79,7 @@ class CommentsController < ApplicationController
   end
 
   def confirm_user
-    if Comment.find_by(id: params[:id]).user_id != current_user.id
+    unless Comment.find_by(id: params[:id]).user_id == current_user.id || current_user.role_mod?
       redirect_to root_path, alert: 'Error! Prohibited Action.'
     end
   end

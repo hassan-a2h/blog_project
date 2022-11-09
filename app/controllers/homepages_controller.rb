@@ -37,8 +37,10 @@ class HomepagesController < ApplicationController
       redirect_to post_comments_path(@post)
     end
 
-    @posts = Post.where(status: :published)
-    @comments = Comment.all
+    @all_posts = Post.where(status: :published)
+    @all_comments = Comment.all
+    @reported_posts = Report.where(reportable_type: 'Post')
+    @reported_comments = Report.where(reportable_type: 'Comment')
   end
 
   def admin

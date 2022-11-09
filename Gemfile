@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # User defined
 gem 'devise'
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.3.1'
+gem 'sprockets-rails', '~> 3.2'
 
 # Defaults
 

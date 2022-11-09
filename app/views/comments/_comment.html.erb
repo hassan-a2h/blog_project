@@ -1,7 +1,19 @@
-<h5> User Id: <%= comment.user_id %> </h5>
+<h5> By: <%= comment.user.user_name %> </h5>
 <p> <%= comment.body %> </p>
+
+<%= link_to "Like", new_comment_like_path(comment) %>
+
+<% unless comment.likes.count == 0 %>
+  <span class='badge badge-secondary'> <%= comment.likes.count %> </span>
+<% end %>
 
 <% if comment.user_id == current_user.id %>
   <%= link_to "Edit", edit_comment_path(comment) %>
   <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %>
 <% end %>
+
+<% if current_user.role_mod? %>
+  <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %>
+<% end %>
+
+<%= link_to "Report Comment", new_comment_report_path(comment) %>

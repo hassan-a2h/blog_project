@@ -7,7 +7,7 @@ class PostsController < ApplicationController
 
 
   def index
-    @posts = Post.all.includes(:likes)
+    @posts = Post.all.includes(:likes, :comments, :suggestions)
   end
 
   def show
