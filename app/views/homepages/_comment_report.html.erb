@@ -1,0 +1,12 @@
+
+<% if comment_report %>
+  <% comment = Comment.find_by(id: comment_report.reportable_id) %>
+  <h3> <%= comment.post.title %> </h3>
+  <p> <%= comment.body %> </p>
+
+  <%= link_to "Delete Post", comment_path(comment), method: :delete, data: { confirm: "Are you sure? " } %>
+
+  <hr>
+<% else %>
+  <p>No comments reported recently. </p>
+<% end %>

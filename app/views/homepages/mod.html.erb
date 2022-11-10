@@ -11,9 +11,9 @@
 <%= render partial: 'comments/comment', collection: @all_comments %>
 
 <h2> Reported Posts </h2>
-<%= render partial: 'application/post', collection: @reported_posts %>
+<%= render partial: 'post_report', collection: @reported_posts  %>
 
 <h2> Reported Comments </h2>
-<%= render partial: 'comments/comment', collection: @reported_comments %>
+<%= render partial: 'comment_report', collection: @reported_comments %>
 
 <%# Mod can view Submitted and reported posts, comments %>

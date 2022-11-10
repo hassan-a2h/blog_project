@@ -82,7 +82,7 @@ class PostsController < ApplicationController
   end
 
   def confirm_user
-    if Post.find_by(id: params[:id]).user_id != current_user.id
+    unless Post.find_by(id: params[:id]).user_id == current_user.id || current_user.role_mod?
       redirect_to root_path, alert: 'Error! Prohibited Action.'
     end
   end

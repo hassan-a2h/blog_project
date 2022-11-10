@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get 'mod'
       get 'admin'
     end
+
   end
 
   root 'homepages#index'

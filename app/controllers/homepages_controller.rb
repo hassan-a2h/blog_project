@@ -27,7 +27,8 @@ class HomepagesController < ApplicationController
       redirect_to post_comments_path(@post)
     end
 
-    @posts = Post.where(status: :published)
+    #### Polymorhphic associations are not getting eagerloaded.
+    @posts = Post.where(status: :published).includes(:likes, :comments, :suggestions)
     @comments = Comment.by_user(current_user.id).includes(:post)
   end
 
@@ -41,6 +42,19 @@ class HomepagesController < ApplicationController
     @all_comments = Comment.all
     @reported_posts = Report.where(reportable_type: 'Post')
     @reported_comments = Report.where(reportable_type: 'Comment')
+  end
+
+  def dismiss_report
+    @report = Report.find_by(id: params[:report_id])
+    redirect_to root_path, alert: 'Error! Could not find Report' unless @report
+
+    if @report.status_resolved!
+      redirect_to root_path, notice: 'Report has been marked resolved!'
+
+    else
+      redirect_to root_path, notice: 'Could not resolve report'
+
+    end
   end
 
   def admin
