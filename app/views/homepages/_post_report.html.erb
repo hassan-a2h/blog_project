@@ -1,12 +1,8 @@
-<% if post_report%>
-  <% post = Post.find_by(id: post_report.reportable_id) %>
-  <h3> <%= post.title %> </h3>
-  <p> <%= post.body %> </p>
 
-  <%= link_to "Delete Post", post_path(post), method: :delete, data: { confirm: "Are you sure? " } %>
+<% post = Post.find_by(id: post_report.reportable_id) %>
+<h3> <%= post.title %> </h3>
+<p> <%= post.body %> </p>
 
-  <hr>
-<% else %>
-  <p>No posts reported recently. </p>
+<%= link_to "Delete Post", post_path(post), method: :delete, data: { confirm: "Are you sure? " } %>
 
-<% end %>
+<hr>
