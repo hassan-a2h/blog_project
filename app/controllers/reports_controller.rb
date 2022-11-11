@@ -4,15 +4,9 @@ class ReportsController < ApplicationController\
   before_action :confirm_sign_in
 
   # Only the owner can edit the post
-  before_action :confirm_user, only: [:index, :show, :edit, :destroy]
+  before_action :confirm_user, only: [:destroy]
 
   # Only admin and mod can view reports
-
-  def index
-  end
-
-  def show
-  end
 
   def new
     if params[:post_id]
@@ -61,13 +55,12 @@ class ReportsController < ApplicationController\
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   def destroy
+    # Find report
+    report = Report.find_by(id: params[:id])
+    redirect_to root_path, alert: 'Error! Could not find report.' unless report
+
+    redirect_to root_path, notice: 'Report dismissed' if report.destroy
   end
 
   private

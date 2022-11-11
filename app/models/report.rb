@@ -8,5 +8,5 @@ class Report < ApplicationRecord
   enum status: {
     pending: 0,
     resolved: 1
-  }
+  }, _prefix: true
 end

@@ -4,5 +4,6 @@
 <p> <%= post.body %> </p>
 
 <%= link_to "Delete Post", post_path(post), method: :delete, data: { confirm: "Are you sure? " } %>
+<%= link_to "Dissmiss Report", report_path(post_report), method: :delete %>
 
 <hr>

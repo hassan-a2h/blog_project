@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # For Reports
   concern :reportable do
-    resources :reports
+    resources :reports, only: [:new, :create, :destroy]
   end
 
   ## Normal Restful routes, with additional nested routes

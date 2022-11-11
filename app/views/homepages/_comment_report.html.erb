@@ -3,6 +3,7 @@
 <h3> <%= comment.post.title %> </h3>
 <p> <%= comment.body %> </p>
 
-<%= link_to "Delete Post", comment_path(comment), method: :delete, data: { confirm: "Are you sure? " } %>
+<%= link_to "Remove Comment", comment_path(comment), method: :delete, data: { confirm: "Are you sure? " } %>
+<%= link_to "Dismiss Report", report_path(comment_report), method: :delete %>
 
 <hr>
