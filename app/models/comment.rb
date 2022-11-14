@@ -2,6 +2,7 @@ class Comment < ApplicationRecord
   # Currently missing attachment attribute
 
   # Associations
+  has_one_attached :attachment
   belongs_to :user
   belongs_to :post
   has_many :likes, as: :likeable, dependent: :destroy

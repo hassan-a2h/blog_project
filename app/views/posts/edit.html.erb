@@ -1,1 +1,22 @@
-<%= render partial: 'form', locals: { post: @post, user_id: @user.id }%>
+<%= form_with model: @post do |f| %>
+
+  <%# Hidden field for user_id of poster. %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <%# Hidden field for publish status of post, default: published. %>
+  <%= f.hidden_field :status, value: 'published' %>
+
+  <%= f.label :title %> <br>
+  <%= f.text_field :title, size: "60", placeholder: "yellow" %> <br> <br>
+
+  <%= f.label :body %> <br>
+  <%= f.text_area :body, size: "80x10", placeholder: "is a color" %> <br> <br>
+
+  <%= f.label :attachment %> <br>
+  <%= f.file_field :attachment %> <br> <br>
+
+  <%= f.check_box :no_attachment %>
+  <%= f.label :no_attachment, 'Remove Attachment' %> <br>
+
+  <%= f.submit %>
+<% end %>

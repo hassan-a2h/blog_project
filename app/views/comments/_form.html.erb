@@ -1,7 +1,9 @@
 <%= form_with model: comment, url: post_comments_path(post) do |f| %>
 
   <%= f.hidden_field :user_id, value: user_id %>
-  <%= f.text_field :body, size: '60', placeholder: 'comment here' %>
+  <%= f.text_field :body, size: '60', placeholder: 'comment here' %> <br>
+  <%= f.file_field :attachment %> <br> <br>
+
   <%= f.submit %>
 
 <% end %>

@@ -1,5 +1,8 @@
 <h5> By: <%= comment.user.user_name %> </h5>
 <p> <%= comment.body %> </p>
+<% if comment.attachment.attached? %>
+  <%= link_to "View", comment.attachment, class: 'btn btn-secondary' %>
+<% end %>
 
 <%= link_to "Like", new_comment_like_path(comment) %>
 

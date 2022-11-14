@@ -1,7 +1,9 @@
 
 <h3> <%= post.title %> </h3>
 <p> <%= post.body %> </p>
-
+<% if post.attachment.attached? %>
+  <%= link_to 'View', post.attachment, class: 'btn btn-secondary' %>
+<% end %>
 <%# Only show like button and like count if the user is signed in. %>
 <% if user_signed_in? %>
   <%= link_to "Like", new_post_like_path(post), class: 'btn btn-primary' %>

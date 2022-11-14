@@ -5,7 +5,6 @@ class PostsController < ApplicationController
   # Only the owner can edit the post
   before_action :confirm_user, only: [:edit, :destroy]
 
-
   def index
     @posts = Post.all.includes(:likes, :comments, :suggestions)
   end
@@ -45,6 +44,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find_by(id: params[:id])
+    @post.attachment.purge if whitelist_edit_params
 
     if @post.update(whitelist_post_params)
       redirect_to post_path(@post), notice: 'Post Updated'
@@ -72,7 +72,11 @@ class PostsController < ApplicationController
   private
 
   def whitelist_post_params
-    params.require(:post).permit(:title, :body, :user_id, :status)
+    params.require(:post).permit(:title, :body, :user_id, :status, :attachment)
+  end
+
+  def whitelist_edit_params
+    params.require(:post).permit(:no_attachment)
   end
 
   def confirm_sign_in

@@ -41,6 +41,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find_by(id: params[:id])
+    @comment.attachment.purge if whitelist_edit_params
 
     if @comment.update(whitelist_params)
       redirect_to root_path, notice: 'Comment Updated'
@@ -67,7 +68,11 @@ class CommentsController < ApplicationController
 
   # To whitelist params
   def whitelist_params
-    params.require(:comment).permit(:user_id, :body)
+    params.require(:comment).permit(:user_id, :body, :attachment)
+  end
+
+  def whitelist_edit_params
+    params.require(:comment).permit(:no_attachment)
   end
 
   # To confirm user

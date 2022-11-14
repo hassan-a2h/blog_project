@@ -1,7 +1,14 @@
 
-<%= form_with model: @comment, url: comment_path, method: :patch do |f| %>
+<%= form_with model: @comment do |f| %>
 
   <%= f.text_field :body, size: '60', placeholder: 'comment here' %>
+
+  <%= f.label :attachment %> <br>
+  <%= f.file_field :attachment %> <br> <br>
+
+  <%= f.check_box :no_attachment %>
+  <%= f.label :no_attachment, 'Remove Attachment' %> <br>
+
   <%= f.submit %>
 
 <% end %>
