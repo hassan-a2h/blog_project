@@ -7,6 +7,8 @@
     <%= link_to "Accept", accept_suggestion_path(suggestion) %>
   <% end %>
 
+<%= link_to 'Replies', suggestion_replies_path(suggestion), class: 'btn btn-danger'%>
+
   <% if suggestion.user_id == current_user.id || post.user_id == current_user.id %>
     <%= link_to "Edit", edit_suggestion_path(suggestion) %>
     <%= link_to "Remove", suggestion_path(suggestion), method: :delete, data: { confirm: "Are you sure?" } %>

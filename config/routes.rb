@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     resources :reports, only: [:new, :create, :destroy]
   end
 
+  # For Replies
+  concern :replyable do
+    resources :replies
+  end
+
   ## Normal Restful routes, with additional nested routes
   # For Users
   devise_for :users, controllers: {
@@ -21,10 +26,10 @@ Rails.application.routes.draw do
   # For Posts
   resources :posts, concerns: [:likeable, :reportable], shallow: true do
     # For Comments
-    resources :comments, concerns: [:likeable, :reportable]
+    resources :comments, concerns: [:likeable, :reportable, :replyable]
 
     # For suggestions
-    resources :suggestions do
+    resources :suggestions, concerns: [:replyable] do
       member do
         get 'accept'
       end

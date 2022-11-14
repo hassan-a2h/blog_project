@@ -24,7 +24,7 @@ class SuggestionsController < ApplicationController
 
   def create
     @post = Post.find_by(id: params[:post_id])
-    @suggestion = @post.Suggestion.new(whitelist_params)
+    @suggestion = @post.suggestions.new(whitelist_params)
 
     if @suggestion.save
       redirect_to post_suggestions_path(@post), notice: 'Suggestion made!'

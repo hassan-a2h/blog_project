@@ -2,6 +2,7 @@ class Suggestion < ApplicationRecord
   # Associations
   belongs_to :user
   belongs_to :post
+  has_many :replies, as: :replyable, dependent: :destroy
 
   # Validations
   validates :user_id, :post_id, :body, :status, presence: true

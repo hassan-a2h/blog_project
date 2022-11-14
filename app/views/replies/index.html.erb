@@ -1,0 +1,14 @@
+<%# render parent object %>
+<% if @parent.class.name.demodulize == 'Comment' %>
+  <%= render partial: 'comments/comment', locals: {comment: @parent} %>
+<% else %>
+  <%= render partial: 'suggestion', locals: { suggestion: @parent } %>
+<% end %>
+
+<%# Show form for new reply %>
+<hr>
+<%= render partial: 'form', locals: { reply: @new_reply, parent: @parent } %>
+<hr>
+
+<%# Render published replies %>
+<%= render partial: 'reply', collection: @replies %>

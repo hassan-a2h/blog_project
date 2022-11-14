@@ -7,6 +7,7 @@ class Comment < ApplicationRecord
   belongs_to :post
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
+  has_many :replies, as: :replyable, dependent: :destroy
 
   # Validations
   validates :body, :user_id, :post_id, presence: true
