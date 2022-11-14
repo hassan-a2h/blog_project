@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   # Currently missing attachment attribute
 
   # Associations
+  has_one_attached :attachment
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :suggestions, dependent: :destroy
