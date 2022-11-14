@@ -13,11 +13,11 @@
 <% if comment.user_id == current_user.id %>
   <%= link_to "Edit", edit_comment_path(comment) %>
   <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %>
-<% end %>
 
-<% if current_user.role_mod? %>
+<% elsif current_user.role_mod? || current_user.role_admin? %>
   <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %>
 <% end %>
+
 
 <%= link_to "Replies", comment_replies_path(comment), class: 'btn btn-danger' %>
 

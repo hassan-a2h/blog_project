@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   ##  Routing Concerns
   # For Comments
   concern :likeable do
@@ -13,7 +12,7 @@ Rails.application.routes.draw do
 
   # For Replies
   concern :replyable do
-    resources :replies
+    resources :replies, only: [:index, :create, :destroy]
   end
 
   ## Normal Restful routes, with additional nested routes
@@ -36,7 +35,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   # For Homepage of each user
   resource :homepage do
     collection do
@@ -44,7 +42,6 @@ Rails.application.routes.draw do
       get 'mod'
       get 'admin'
     end
-
   end
 
   root 'homepages#index'

@@ -1,4 +1,8 @@
-<h5> User Id: <%= suggestion.user_id %> </h5>
-<p> <%= suggestion.body %> </p>
+<h5> User: <%= reply.user.user_name %> </h5>
+<p> <%= reply.body %> </p>
 
-<%= link_to 'Like', root_path %>
+<% if reply.user_id == current_user.id || current_user.role_mod? || current_user.role_admin? %>
+  <%= link_to "Delete", reply_path(reply), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+
+<% end %>
+
