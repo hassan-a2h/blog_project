@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class HomepagesController < ApplicationController
+  before_action :confirm_sign_in, except: :index
   before_action :authorized, only: [:reports]
+  before_action :user_authorized, only: [:user]
+  before_action :mod_authorized, only: [:mod]
+  before_action :admin_authorized, only: [:admin]
 
   def index
     if user_signed_in?
@@ -53,5 +57,21 @@ class HomepagesController < ApplicationController
 
   def authorized
     redirect_to root_path 'Prohibited Action!' unless current_user.mod?
+  end
+
+  def confirm_sign_in
+    redirect_to root_path, alert: 'Action Forbidden!' unless user_signed_in?
+  end
+
+  def user_authorized
+    redirect_to root_path, alert: 'Action Forbidden!' unless current_user.user?
+  end
+
+  def mod_authorized
+    redirect_to root_path, alert: 'Action Forbidden!' unless current_user.mod?
+  end
+
+  def admin_authorized
+    redirect_to root_path, alert: 'Action Forbidden!' unless current_user.admin?
   end
 end

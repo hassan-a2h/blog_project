@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/homepage/admin', as: 'rails_admin'
   concern :likeable do
     resources :likes, only: [:new]
   end
