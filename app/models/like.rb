@@ -6,4 +6,5 @@ class Like < ApplicationRecord
   validates :user_id, presence: true
 
   scope :already_made, ->(post_id, user_id) { find_by(likeable_id: post_id, user_id: user_id) }
+  scope :by_user, ->(id) { where('user_id = ?', id) }
 end

@@ -47,7 +47,7 @@ class LikesController < ApplicationController
   end
 
   def find_comment
-    comment = params[:id] ? Comment.find_by(id: params[:id]) : Comment.find_by(id: params[:post_id])
+    comment = params[:id] ? Comment.find_by(id: params[:id]) : Comment.find_by(id: params[:comment_id])
     redirect_to root_path, alert: 'Error! could not find comment' unless comment
     comment
   end

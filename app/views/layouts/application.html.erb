@@ -14,8 +14,9 @@
 
     <%= render 'application/navbar' %>
     <%# To render alerts and notices from partial. %>
-    <%= render "application/alerts" %>
-
-    <%= yield %>
+    <div class='container'>
+      <%= render "application/alerts" %>
+      <%= yield %>
+    </div>
   </body>
 </html>

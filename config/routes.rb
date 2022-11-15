@@ -32,6 +32,10 @@ Rails.application.routes.draw do
       get 'user'
       get 'mod'
       get 'admin'
+      get 'my_posts'
+      get 'my_comments'
+      get 'my_likes'
+      get 'reports'
     end
   end
 

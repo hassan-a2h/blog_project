@@ -31,19 +31,19 @@ class RepliesController < ApplicationController
 
   def find_comment
     comment = params[:id] ? Comment.find_by(id: params[:id]) : Comment.find_by(id: params[:comment_id])
-    redirect_to root_path, alert: 'Error! could not find post' unless comment
+    redirect_to root_path, alert: 'Error! could not find comment' unless comment
     comment
   end
 
   def find_suggestion
     suggestion = params[:id] ? Suggestion.find_by(id: params[:id]) : Suggestion.find_by(id: params[:suggestion_id])
-    redirect_to root_path, alert: 'Error! could not find post' unless suggestion
+    redirect_to root_path, alert: 'Error! could not find suggestion' unless suggestion
     suggestion
   end
 
   def find_reply
     reply = params[:id] ? Reply.find_by(id: params[:id]) : Reply.find_by(id: params[:reply_id])
-    redirect_to root_path, alert: 'Error! could not find post' unless reply
+    redirect_to root_path, alert: 'Error! could not find reply' unless reply
     reply
   end
 end
