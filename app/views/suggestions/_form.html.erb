@@ -1,3 +1,4 @@
+<hr>
 <%= form_with model: suggestion, url: post_suggestions_path(post) do |f| %>
 
   <%= f.hidden_field :user_id, value: user_id %>
@@ -5,3 +6,4 @@
   <%= f.submit %>
 
 <% end %>
+<hr>

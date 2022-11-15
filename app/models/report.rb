@@ -1,12 +1,14 @@
-class Report < ApplicationRecord
+# frozen_string_literal: true
 
-  # Associations
+class Report < ApplicationRecord
   belongs_to :reportable, polymorphic: true
   belongs_to :user
 
-  # Enums
   enum status: {
     pending: 0,
     resolved: 1
-  }, _prefix: true
+  }
+
+  scope :comments, -> { where('reportable_type = Comment, status = pending') }
+  scope :posts, -> { where('reportable_type = Post, status = pending') }
 end

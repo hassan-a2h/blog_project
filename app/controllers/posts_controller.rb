@@ -1,20 +1,15 @@
-class PostsController < ApplicationController
-  # Only signed in users can post
-  before_action :confirm_sign_in
+# frozen_string_literal: true
 
-  # Only the owner can edit the post
-  before_action :confirm_user, only: [:edit, :destroy]
+class PostsController < ApplicationController
+  before_action :confirm_sign_in
+  before_action :confirm_user, only: %i[edit destroy]
 
   def index
     @posts = Post.all.includes(:likes, :comments, :suggestions)
   end
 
   def show
-    @post = Post.find_by(id: params[:id])
-
-    unless @post
-      redirect_to root_path, alert: 'Could not find post.'
-    end
+    @post = find_post
   end
 
   def new
@@ -28,7 +23,6 @@ class PostsController < ApplicationController
     if @post.save
       flash[:notice] = 'Post created'
       redirect_to post_path(@post)
-
     else
       flash[:alert] = 'Error! Could not save post.'
       redirect_to root_path
@@ -36,38 +30,30 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find_by(id: params[:id])
+    @post = find_post
     @user = current_user
-
-    redirect_to root_path, alert: 'Could not find Post' unless @post
   end
 
   def update
-    @post = Post.find_by(id: params[:id])
+    @post = find_post
     @post.attachment.purge if whitelist_edit_params
 
     if @post.update(whitelist_post_params)
       redirect_to post_path(@post), notice: 'Post Updated'
-
     else
       redirect_to root_path, alert: 'Could not update Post!'
-
     end
   end
 
   def destroy
-    @post = Post.find_by(id: params[:id])
+    @post = find_post
 
     if @post.destroy
       redirect_to root_path, notice: 'Post Deleted!'
-
     else
       redirect_to post_path(@post), alert: 'Could not delete Post!'
-
     end
   end
-
-  # Additional Actions
 
   private
 
@@ -80,14 +66,18 @@ class PostsController < ApplicationController
   end
 
   def confirm_sign_in
-    unless user_signed_in?
-      redirect_to root_path, alert: 'Action Forbidden!'
-    end
+    redirect_to root_path, alert: 'Action Forbidden!' unless user_signed_in?
   end
 
   def confirm_user
-    unless Post.find_by(id: params[:id]).user_id == current_user.id || current_user.role_mod?
-      redirect_to root_path, alert: 'Error! Prohibited Action.'
-    end
+    return if Post.find_by(id: params[:id]).user_id == current_user.id || current_user.mod?
+
+    redirect_to root_path, alert: 'Error! Prohibited Action.'
+  end
+
+  def find_post
+    post = params[:id] ? Post.find_by(id: params[:id]) : Post.find_by(id: params[:post_id])
+    redirect_to root_path, alert: 'Error! could not find post' unless post
+    post
   end
 end

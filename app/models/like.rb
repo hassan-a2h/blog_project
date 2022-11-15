@@ -1,12 +1,9 @@
-class Like < ApplicationRecord
+# frozen_string_literal: true
 
-  # Associations
+class Like < ApplicationRecord
   belongs_to :likeable, polymorphic: true
 
-  # Validations
-  validates :user_id, :likeable_type, :likeable_id, presence: true
-  # Enums
+  validates :user_id, presence: true
 
-  # Scopes
   scope :already_made, ->(post_id, user_id) { find_by(likeable_id: post_id, user_id: user_id) }
 end

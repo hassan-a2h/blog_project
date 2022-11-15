@@ -1,3 +1,4 @@
+<hr>
 <%= form_with model: comment, url: post_comments_path(post) do |f| %>
 
   <%= f.hidden_field :user_id, value: user_id %>
@@ -7,3 +8,4 @@
   <%= f.submit %>
 
 <% end %>
+<hr>

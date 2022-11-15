@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReportsController < ApplicationController
   before_action :confirm_sign_in
   before_action :confirm_user, only: [:destroy]
@@ -5,17 +7,12 @@ class ReportsController < ApplicationController
   def new
     if params[:post_id]
       @post = find_post
-
       @report = @post.reports.new
       redirect_to root_path, alert: 'Report can not be generated!' unless @report
-
     elsif params[:comment_id]
-      @comment = Comment.find_by(id: params[:comment_id])
-      redirect_to root_path, alert: 'Post not found!' unless @comment
-
+      @comment = find_comment
       @report = @comment.reports.new
       redirect_to root_path, alert: 'Report can not be generated!' unless @report
-
     end
   end
 
@@ -45,7 +42,6 @@ class ReportsController < ApplicationController
 
   def destroy
     report = find_report
-
     redirect_to root_path, notice: 'Report dismissed' if report.destroy
   end
 
@@ -60,7 +56,7 @@ class ReportsController < ApplicationController
   end
 
   def confirm_user
-    redirect_to root_path, alert: 'Error! Prohibited Action.' unless current_user.role_mod? || current_user.role_admin?
+    redirect_to root_path, alert: 'Error! Prohibited Action.' unless current_user.mod? || current_user.admin?
   end
 
   def find_post
@@ -77,8 +73,7 @@ class ReportsController < ApplicationController
 
   def find_report
     report = params[:id] ? Report.find_by(id: params[:id]) : Report.find_by(id: params[:report_id])
-    redirect_to root_path, alert: 'Error! could not find comment' unless report
+    redirect_to root_path, alert: 'Error! could not find report' unless report
     report
   end
-
 end

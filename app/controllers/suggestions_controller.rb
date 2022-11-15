@@ -1,5 +1,6 @@
-class SuggestionsController < ApplicationController
+# frozen_string_literal: true
 
+class SuggestionsController < ApplicationController
   before_action :confirm_sign_in
   before_action :confirm_user, only: %i[edit destroy]
 
@@ -66,9 +67,9 @@ class SuggestionsController < ApplicationController
 
   def confirm_user
     suggestion = find_suggestion
-    unless suggestion.user_id == current_user.id || suggestion.post.user_id == current_user.id
-      redirect_to root_path, alert: 'Error! Prohibited Action.'
-    end
+    return if suggestion.user_id == current_user.id || suggestion.post.user_id == current_user.id
+
+    redirect_to root_path, alert: 'Error! Prohibited Action.'
   end
 
   def find_post
