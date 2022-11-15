@@ -1,11 +1,7 @@
 
 <% suggestions.each do |suggestion| %>
-  <h5> User Id: <%= suggestion.user_id %> </h5>
+  <h5> <em> by </em> <%= suggestion.user.user_name %> </h5>
   <p> <%= suggestion.body %> </p>
-
-  <% if post.user_id == current_user.id %>
-    <%= link_to "Accept", accept_suggestion_path(suggestion) %>
-  <% end %>
 
 <%= link_to 'Replies', suggestion_replies_path(suggestion), class: 'btn btn-danger'%>
 

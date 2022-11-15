@@ -1,17 +1,10 @@
-class ReportsController < ApplicationController\
-  ## Controller Filters
-  # Only signed in users can post
+class ReportsController < ApplicationController
   before_action :confirm_sign_in
-
-  # Only the owner can edit the post
   before_action :confirm_user, only: [:destroy]
-
-  # Only admin and mod can view reports
 
   def new
     if params[:post_id]
-      @post = Post.find_by(id: params[:post_id])
-      redirect_to root_path, alert: 'Post not found!' unless @post
+      @post = find_post
 
       @report = @post.reports.new
       redirect_to root_path, alert: 'Report can not be generated!' unless @report
@@ -34,31 +27,24 @@ class ReportsController < ApplicationController\
 
       if @report.save
         redirect_to root_path, notice: 'Your report has been submitted!'
-
       else
         redirect_to root_path, alert: 'Error! your report could not be submitted.'
-
       end
 
     elsif params[:comment_id]
-      @comment = Comment.find_by(id: params[:comment_id])
-      redirect_to root_path, alert: 'Could not find comment!' unless @comment
+      @comment = find_comment
       @report = @comment.reports.new(whitelist_params)
 
       if @report.save
         redirect_to root_path, notice: 'Your report has been submitted!'
-
       else
         redirect_to root_path, alert: 'Error! your report could not be submitted.'
-
       end
     end
   end
 
   def destroy
-    # Find report
-    report = Report.find_by(id: params[:id])
-    redirect_to root_path, alert: 'Error! Could not find report.' unless report
+    report = find_report
 
     redirect_to root_path, notice: 'Report dismissed' if report.destroy
   end
@@ -70,15 +56,29 @@ class ReportsController < ApplicationController\
   end
 
   def confirm_sign_in
-    unless user_signed_in?
-      redirect_to root_path, alert: 'Action Forbidden!'
-    end
+    redirect_to root_path, alert: 'Action Forbidden!' unless user_signed_in?
   end
 
   def confirm_user
-    unless current_user.role_mod? || current_user.role_admin?
-      redirect_to root_path, alert: 'Error! Prohibited Action.'
-    end
+    redirect_to root_path, alert: 'Error! Prohibited Action.' unless current_user.role_mod? || current_user.role_admin?
+  end
+
+  def find_post
+    post = params[:id] ? Post.find_by(id: params[:id]) : Post.find_by(id: params[:post_id])
+    redirect_to root_path, alert: 'Error! could not find post' unless post
+    post
+  end
+
+  def find_comment
+    comment = params[:id] ? Comment.find_by(id: params[:id]) : Comment.find_by(id: params[:comment_id])
+    redirect_to root_path, alert: 'Error! could not find comment' unless comment
+    comment
+  end
+
+  def find_report
+    report = params[:id] ? Report.find_by(id: params[:id]) : Report.find_by(id: params[:report_id])
+    redirect_to root_path, alert: 'Error! could not find comment' unless report
+    report
   end
 
 end

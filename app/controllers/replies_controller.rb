@@ -23,7 +23,7 @@ class RepliesController < ApplicationController
     reply = Reply.find_by(id: params[:id])
     redirect_to root_path, alert: 'Error! Could not find reply.' unless reply
 
-    redirect_to root_path, notice: 'Reply removed!' if report.destroy
+    redirect_to root_path, notice: 'Reply removed!' if reply.destroy
   end
 
   private

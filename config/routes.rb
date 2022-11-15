@@ -1,33 +1,23 @@
 Rails.application.routes.draw do
-  ##  Routing Concerns
-  # For Comments
   concern :likeable do
     resources :likes, only: [:new]
   end
 
-  # For Reports
   concern :reportable do
-    resources :reports, only: [:new, :create, :destroy]
+    resources :reports, only: %i[new create destroy]
   end
 
-  # For Replies
   concern :replyable do
-    resources :replies, only: [:index, :create, :destroy]
+    resources :replies, only: %i[index create destroy]
   end
 
-  ## Normal Restful routes, with additional nested routes
-  # For Users
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
 
-  # For Posts
-  resources :posts, concerns: [:likeable, :reportable], shallow: true do
-    # For Comments
-    resources :comments, concerns: [:likeable, :reportable, :replyable]
-
-    # For suggestions
+  resources :posts, concerns: %i[likeable reportable], shallow: true do
+    resources :comments, concerns: %i[likeable reportable replyable]
     resources :suggestions, concerns: [:replyable] do
       member do
         get 'accept'
@@ -35,7 +25,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # For Homepage of each user
   resource :homepage do
     collection do
       get 'user'
