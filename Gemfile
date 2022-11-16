@@ -8,6 +8,7 @@ gem 'aws-sdk-s3'
 gem 'bootstrap', '~> 4.3.1'
 gem 'devise'
 gem 'jquery-rails'
+gem 'pg'
 gem 'rails_admin', '~> 2.0'
 gem 'sprockets-rails', '~> 3.2'
 
