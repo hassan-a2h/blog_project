@@ -15,5 +15,5 @@ class Post < ApplicationRecord
     published: 10
   }
 
-  scope :published_by, ->(id) { where('user_id = ?', id) }
+  scope :published_by, ->(id) { where("user_id = ?", id) }
 end
