@@ -25,8 +25,8 @@ module Users
     # end
 
     # The path used after confirmation.
-    # def after_confirmation_path_for(resource_name, resource)
-    #   super(resource_name, resource)
+    # def after_confirmation_path_for(_resource_name, _resource)
+    #   redirect_to new_user_session_path, notice: 'Please sign in'
     # end
   end
 end

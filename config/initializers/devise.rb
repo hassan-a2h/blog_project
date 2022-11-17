@@ -9,7 +9,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-   # ==> Configuration for :lockable
+  # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
   # :failed_attempts = Locks an account after a number of failed attempts to sign in.
   # :none            = No lock strategy. You should handle locking by yourself.
@@ -41,6 +41,9 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '4f1259db1d41fb54f079765fb64b86d1faec5e22db7894c247c39a98e449ad061bcbe5af5805bcfa1b6c6ed7cd2fe5792a1cd3d4326c186c62e51ab8efde2e1a'
 
+  # Lazmi put a background job to send confirmation email to all unconfirmed users.
+  # config.allow_unconfirmed_access_for = 365.days
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -49,10 +52,11 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+
+  # config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'ConfirmationMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
