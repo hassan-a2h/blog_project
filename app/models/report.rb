@@ -9,6 +9,6 @@ class Report < ApplicationRecord
     resolved: 1
   }
 
-  scope :comments, -> { where('reportable_type = Comment, status = pending').order(created_at: :desc) }
-  scope :posts, -> { where('reportable_type = Post, status = pending').order(created_at: :desc) }
+  scope :comment_reports, ->(type) { where('reportable_type = ?', type).order(created_at: :desc) }
+  scope :post_reports, ->(type) { where('reportable_type = ?', type).order(created_at: :desc) }
 end

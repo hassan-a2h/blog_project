@@ -71,16 +71,14 @@ class PostsController < ApplicationController
 
   def unpublish
     @post = find_post
+    @report = find_report('Post', @post.id)
 
     if @post.unpublished!
-      redirect_to approve_posts_path, notice: 'Post Unpublished!'
+      redirect_to reports_users_path, alert: 'Could not delete report!' unless @report.destroy
+      redirect_to reports_users_path, notice: 'Post Unpublished!'
     else
       render :approve, alert: 'Error! could not unpublish post'
     end
-  end
-
-  def user_posts
-    @posts = Post.published_by(current_user.id).published
   end
 
   private
@@ -107,5 +105,11 @@ class PostsController < ApplicationController
     post = params[:id] ? Post.find_by(id: params[:id]) : Post.find_by(id: params[:post_id])
     redirect_to root_path, alert: 'Error! could not find post' unless post
     post
+  end
+
+  def find_report(type, id)
+    report = Report.find_by(reportable_type: type, reportable_id: id)
+    redirect_to root_path, alert: 'Error! could not find report' unless report
+    report
   end
 end

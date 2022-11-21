@@ -1,0 +1,7 @@
+<h1> Posts </h1>
+
+<% if @posts.blank? %>
+  <p> No posts made yet </p>
+<% else %>
+  <%= render partial: 'application/post', collection: @posts %>
+<% end %>

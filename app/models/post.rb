@@ -13,11 +13,12 @@ class Post < ApplicationRecord
   enum status: {
     pending: 0,
     published: 10,
+    unpublished: 15,
     rejected: 20
   }
 
   default_scope { order(created_at: :desc) }
-  scope :published, -> { where('status = 10') }
+  scope :published_posts, -> { where('status = 10') }
   scope :published_by, ->(id) { where('user_id = ?', id) }
   scope :pending_posts, -> { where('status = 0') }
 end

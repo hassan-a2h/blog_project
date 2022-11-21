@@ -1,0 +1,9 @@
+
+<% comment = Comment.find_by(id: comment_report.reportable_id) %>
+<h3> <%= comment.post.title %> </h3>
+<p> <%= comment.body %> </p>
+
+<%= link_to "Remove Comment", comment_path(comment), class: 'btn btn-outline-danger', method: :delete, data: { confirm: "Are you sure? " } %>
+<%= link_to "Dismiss Report", report_path(comment_report), class: 'btn btn-outline-secondary', method: :delete %>
+
+<hr>

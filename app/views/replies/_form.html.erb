@@ -1,7 +1,7 @@
-<hr>
+
 <%= form_with model: reply, url: (@parent.class.name.demodulize == 'Comment') ? comment_replies_path(@parent) : suggestion_replies_path(@parent) do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.text_field :body, placeholder: 'Add reply ... ' %>
   <%= f.submit %>
 <% end %>
-<hr>
+

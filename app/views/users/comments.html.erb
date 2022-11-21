@@ -1,0 +1,7 @@
+<h1> Comments </h1>
+
+<% if @comments.blank? %>
+  <p> No comments made yet </p>
+<% else %>
+  <%= render partial: 'comments/comment', collection: @comments %>
+<% end %>
