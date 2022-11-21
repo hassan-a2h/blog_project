@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :confirm_user, only: %i[edit destroy]
 
   def index
-    @posts = Post.all.includes(:likes, :comments, :suggestions)
+    @posts = Post.published.includes(:likes, :comments, :suggestions)
   end
 
   def show
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
     @post = Post.new(whitelist_post_params)
 
     if @post.save
-      flash[:notice] = 'Post created'
+      flash[:notice] = 'Post Created (Approval Pending)'
       redirect_to post_path(@post)
     else
       flash[:alert] = 'Error! Could not save post.'
@@ -53,6 +53,34 @@ class PostsController < ApplicationController
     else
       redirect_to post_path(@post), alert: 'Could not delete Post!'
     end
+  end
+
+  def approve
+    @pending_posts = Post.pending_posts.includes(:user)
+  end
+
+  def publish
+    @post = find_post
+
+    if @post.published!
+      redirect_to approve_posts_path, notice: 'Post Published!'
+    else
+      render :approve, alert: 'Error! could not publish post'
+    end
+  end
+
+  def unpublish
+    @post = find_post
+
+    if @post.unpublished!
+      redirect_to approve_posts_path, notice: 'Post Unpublished!'
+    else
+      render :approve, alert: 'Error! could not unpublish post'
+    end
+  end
+
+  def user_posts
+    @posts = Post.published_by(current_user.id).published
   end
 
   private

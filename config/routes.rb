@@ -27,6 +27,16 @@ Rails.application.routes.draw do
         get 'accept'
       end
     end
+
+    collection do
+      get 'approve'
+      get 'user_posts'
+    end
+
+    member do
+      post 'publish'
+      post 'unpublish'
+    end
   end
 
   resource :homepage do

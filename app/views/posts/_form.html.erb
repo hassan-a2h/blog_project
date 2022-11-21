@@ -4,8 +4,8 @@
   <%# Hidden field for user_id of poster. %>
   <%= f.hidden_field :user_id, value: user_id %>
 
-  <%# Hidden field for publish status of post, default: published. %>
-  <%= f.hidden_field :status, value: 'published' %>
+  <%# Hidden field for publish status of post, default: pending. %>
+  <%= f.hidden_field :status, value: 'pending' %>
 
   <%= f.label :title %> <br>
   <%= f.text_field :title, size: "60", placeholder: "yellow" %> <br> <br>

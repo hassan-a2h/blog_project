@@ -49,10 +49,23 @@
       <% elsif current_user.mod? %>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="<%= my_posts_homepage_path %>"> My Posts</a>
+            <a class="nav-link btn btn-info ml-2" href="<%= my_posts_homepage_path %>">My Posts</a>
           </li>
+
           <li class="nav-item active">
-            <a class="nav-link" href="<%= reports_homepage_path %>"> Reports</a>
+            <a class="nav-link btn btn-info ml-2" href="<%= my_comments_homepage_path %>"> All Comments </a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link btn btn-info ml-2" href="<%= my_likes_homepage_path %>"> All Likes </a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link btn btn-info ml-2" href="<%= approve_posts_path %>"> Approve </a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link btn btn-info ml-2" href="<%= reports_homepage_path %>"> Reports</a>
           </li>
         </ul>
 

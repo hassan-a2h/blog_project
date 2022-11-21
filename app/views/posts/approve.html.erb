@@ -1,0 +1,7 @@
+<h1> For Publish </h1>
+
+<% if @pending_posts.blank? %>
+  <p> No posts available </p>
+<% else %>
+  <%= render partial: 'pending_post', collection: @pending_posts %>
+<% end %>
