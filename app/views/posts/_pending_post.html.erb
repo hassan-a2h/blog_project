@@ -1,7 +1,7 @@
 
 <hr>
 <h3> <%= pending_post.title %> </h3>
-<p> <%= pending_post.body %> </p>
+<p> <%= pending_post.content %> </p>
 <p> <strong> by: <%= pending_post.user.user_name %> </strong> </p>
 <% if pending_post.attachment.attached? %>
   <%= link_to 'View', pending_post.attachment, class: 'btn btn-secondary' %>

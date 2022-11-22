@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  has_rich_text :content
   has_one_attached :attachment
   belongs_to :user
   has_many :comments, dependent: :destroy
@@ -8,7 +9,7 @@ class Post < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
 
-  validates :title, :body, :status, :user_id, presence: true
+  validates :title, :status, :user_id, presence: true
 
   enum status: {
     pending: 0,

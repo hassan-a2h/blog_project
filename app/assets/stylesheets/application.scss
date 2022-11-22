@@ -1,1 +1,5 @@
 @import "bootstrap";
+@import 'trix/dist/trix.css';
+@import 'actiontext';
+
+.trix-button-group--file-tools { display: none !important; }

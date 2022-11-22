@@ -1,6 +1,6 @@
 
 <h3> <%= post.title %> </h3>
-<p> <%= post.body %> </p>
+<p> <%= post.content %> </p>
 <% if post.attachment.attached? %>
   <%= link_to 'View', post.attachment, class: 'btn btn-secondary' %>
 <% end %>
