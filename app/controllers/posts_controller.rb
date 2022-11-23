@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :confirm_user, only: %i[edit destroy]
 
   def index
-    @posts = Post.all.includes(:likes, :comments, :suggestions)
+    @posts = Post.published.includes(:likes, :comments, :suggestions)
   end
 
   def show
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
     @post = Post.new(whitelist_post_params)
 
     if @post.save
-      flash[:notice] = 'Post created'
+      flash[:notice] = 'Post Created (Approval Pending)'
       redirect_to post_path(@post)
     else
       flash[:alert] = 'Error! Could not save post.'
@@ -55,6 +55,32 @@ class PostsController < ApplicationController
     end
   end
 
+  def approve
+    @pending_posts = Post.pending_posts.includes(:user)
+  end
+
+  def publish
+    @post = find_post
+
+    if @post.published!
+      redirect_to approve_posts_path, notice: 'Post Published!'
+    else
+      render :approve, alert: 'Error! could not publish post'
+    end
+  end
+
+  def unpublish
+    @post = find_post
+    @report = find_report('Post', @post.id)
+
+    if @post.unpublished!
+      redirect_to reports_users_path, alert: 'Could not delete report!' unless @report.destroy
+      redirect_to reports_users_path, notice: 'Post Unpublished!'
+    else
+      render :approve, alert: 'Error! could not unpublish post'
+    end
+  end
+
   private
 
   def whitelist_post_params
@@ -79,5 +105,11 @@ class PostsController < ApplicationController
     post = params[:id] ? Post.find_by(id: params[:id]) : Post.find_by(id: params[:post_id])
     redirect_to root_path, alert: 'Error! could not find post' unless post
     post
+  end
+
+  def find_report(type, id)
+    report = Report.find_by(reportable_type: type, reportable_id: id)
+    redirect_to root_path, alert: 'Error! could not find report' unless report
+    report
   end
 end

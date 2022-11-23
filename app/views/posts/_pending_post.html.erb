@@ -1,0 +1,11 @@
+
+<hr>
+<h3> <%= pending_post.title %> </h3>
+<p> <%= pending_post.body %> </p>
+<p> <strong> by: <%= pending_post.user.user_name %> </strong> </p>
+<% if pending_post.attachment.attached? %>
+  <%= link_to 'View', pending_post.attachment, class: 'btn btn-secondary' %>
+<% end %>
+
+<%= link_to "Publish", publish_post_path(pending_post), method: :post, class: 'btn btn-primary' %>
+<%= link_to "Delete", post_path(pending_post), method: :delete, class: 'btn btn-danger' %>

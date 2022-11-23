@@ -20,26 +20,34 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
 
-  resources :posts, concerns: %i[likeable reportable], shallow: true do
-    resources :comments, concerns: %i[likeable reportable replyable]
-    resources :suggestions, concerns: [:replyable] do
-      member do
-        get 'accept'
-      end
+  resources :users, only: [:show] do
+    member do
+      get 'comments'
+      get 'posts'
+      get 'likes'
+      get 'suggestions'
     end
-  end
 
-  resource :homepage do
     collection do
-      get 'user'
-      get 'mod'
-      get 'admin'
-      get 'my_posts'
-      get 'my_comments'
-      get 'my_likes'
       get 'reports'
     end
   end
+
+  resources :posts, concerns: %i[likeable reportable], shallow: true do
+    resources :comments, concerns: %i[likeable reportable replyable]
+    resources :suggestions, concerns: [:replyable]
+
+    collection do
+      get 'approve'
+    end
+
+    member do
+      post 'publish'
+      post 'unpublish'
+    end
+  end
+
+  resource :homepage, only: [:index]
 
   root 'homepages#index'
 end

@@ -1,0 +1,7 @@
+<h1> Suggestions </h1>
+
+<% if @suggestions.blank? %>
+  <p> No suggestions made yet </p>
+<% else %>
+  <%= render partial: 'suggestion', collection: @suggestions %>
+<% end %>

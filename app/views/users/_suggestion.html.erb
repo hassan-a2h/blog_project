@@ -1,0 +1,6 @@
+<hr>
+<h5> <em> <strong> Post </strong> </em> <%= suggestion.post.title %> </h5>
+<p> <%= suggestion.body %> </p>
+
+<%= link_to "Edit", edit_suggestion_path(suggestion) %>
+<%= link_to "Remove", suggestion_path(suggestion), method: :delete, data: { confirm: "Are you sure?" } %>

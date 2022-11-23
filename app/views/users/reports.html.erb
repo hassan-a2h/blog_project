@@ -1,0 +1,15 @@
+<h1> <em> Reported Posts </em> </h1>
+
+<% if @post_reports.blank? %>
+  <p> No posts have been reported recently. </p>
+<% else %>
+  <%= render partial: 'post_report', collection: @post_reports  %>
+<% end %>
+
+<h1> <em> Reported Comments </em> </h1>
+
+<% if @comment_reports.blank? %>
+  <p> No comments have been reported recently. </p>
+<% else %>
+  <%= render partial: 'comment_report', collection: @comment_reports %>
+<% end %>
