@@ -1,31 +1,39 @@
+<div class='card mt-2'>
+  <div class='card-header'>
+    <h5> <%= post.title %> </h5>
+  </div>
 
-<h3> <%= post.title %> </h3>
-<p> <%= post.content %> </p>
-<% if post.attachment.attached? %>
-  <%= link_to 'View', post.attachment, class: 'btn btn-secondary' %>
-<% end %>
-<%# Only show like button and like count if the user is signed in. %>
-<% if user_signed_in? %>
-  <%= link_to "Like", new_post_like_path(post), class: 'btn btn-primary' %>
+  <div class='card-body'>
+    <p> <%= post.content %> </p>
+    <% if post.attachment.attached? %>
+      <%= image_tag post.attachment, height: '400' %> <br> <br>
+    <% end %>
+    <%# Only show like button and like count if the user is signed in. %>
+    <% if user_signed_in? %>
+      <%= link_to "Like", new_post_like_path(post), class: 'btn btn-primary' %>
 
-  <% unless post.likes.count == 0 %>
-  <span class='badge badge-secondary'> <%= post.likes.count  %> </span>
-  <% end %>
+      <% unless post.likes.count == 0 %>
+      <span class='badge badge-secondary'> <%= post.likes.count  %> </span>
+      <% end %>
 
-<% end %>
+    <% end %>
 
-<%= link_to "Comments", post_comments_path(post) %>
+    <%= link_to "Comments", post_comments_path(post), class: 'btn btn-outline-primary' %>
 
-<% unless post.comments.count == 0 %>
-  <span class='badge badge-secondary'> <%= post.comments.count %> </span>
-<% end %>
+    <% unless post.comments.count == 0 %>
+      <span class='badge badge-secondary'> <%= post.comments.count %> </span>
+    <% end %>
 
-<%= link_to "Suggestions", post_suggestions_path(post) %>
+    <%= link_to "Suggestions", post_suggestions_path(post), class: 'btn btn-outline-success' %>
 
-<% unless post.suggestions.count == 0 %>
-  <span class='badge badge-secondary'> <%= post.suggestions.count %> </span>
+    <% unless post.suggestions.count == 0 %>
+      <span class='badge badge-secondary'> <%= post.suggestions.count %> </span>
 
-<% end %>
+    <% end %>
 
-<%= link_to "Show Post", post_path(post) %>
-<%= link_to "Report Post", new_post_report_path(post) %>
+    <%= link_to "Show Post", post_path(post), class: 'btn btn-outline-secondary' %>
+    <%= link_to "Report Post", new_post_report_path(post), class: 'btn btn-outline-danger' %>
+
+  </div>
+</div>
+

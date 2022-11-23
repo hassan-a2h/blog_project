@@ -1,7 +1,7 @@
 
 <% post = Post.find_by(id: post_report.reportable_id) %>
 <h3> <%= post.title %> </h3>
-<p> <%= post.body %> </p>
+<p> <%= post.content %> </p>
 
 <%= link_to "Delete Post", post_path(post), class: 'btn btn-outline-danger', method: :delete, data: { confirm: "Are you sure? " } %>
 <%= link_to "Unpublish", unpublish_post_path(post_report.reportable_id), class: 'btn btn-outline-warning', method: :post %>

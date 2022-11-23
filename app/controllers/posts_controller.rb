@@ -23,7 +23,7 @@ class PostsController < ApplicationController
       flash[:notice] = 'Post Created (Approval Pending)'
       redirect_to post_path(@post)
     else
-      render :new
+      redirect_to new_post_path, alert: 'Error! could not save post (Ensure Valid Entries)'
     end
   end
 
