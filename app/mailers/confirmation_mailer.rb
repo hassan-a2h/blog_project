@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConfirmationMailer < Devise::Mailer
   default from: 'ahmad.naeemllah@devsinc.com'
 

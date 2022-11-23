@@ -1,1 +1,9 @@
-<%= render partial: 'form', locals: { post: @post, user_id: @user.id }%>
+<% if @post.errors.any? %>
+  <ul>
+    <% @post.errors.each do |e| %>
+      <li class='alert alert-danger'> e </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render partial: 'form', locals: { post: @post, user_id: current_user.id }%>

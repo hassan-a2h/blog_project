@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  has_rich_text :content
   has_one_attached :attachment
   belongs_to :user
   has_many :comments, dependent: :destroy
@@ -8,7 +9,9 @@ class Post < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
 
-  validates :title, :body, :status, :user_id, presence: true
+  validates :title, :status, :user_id, presence: true
+  validate :picture_only
+  validate :picture_size
 
   enum status: {
     pending: 0,
@@ -21,4 +24,19 @@ class Post < ApplicationRecord
   scope :published_posts, -> { where('status = 10') }
   scope :published_by, ->(id) { where('user_id = ?', id) }
   scope :pending_posts, -> { where('status = 0') }
+
+  private
+
+  def picture_only
+    extension = attachment.filename.to_s.split('.').last
+    return if %w[svg eps tiff gif jpg jpeg png].include?(extension.downcase)
+
+    errors.add(:attachment, 'Invalid Format')
+  end
+
+  def picture_size
+    return unless attachment.byte_size > 4_000_000
+
+    errors.add(:attachment, 'Error! file size too big')
+  end
 end

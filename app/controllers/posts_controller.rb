@@ -13,7 +13,6 @@ class PostsController < ApplicationController
   end
 
   def new
-    @user = current_user
     @post = Post.new
   end
 
@@ -24,8 +23,7 @@ class PostsController < ApplicationController
       flash[:notice] = 'Post Created (Approval Pending)'
       redirect_to post_path(@post)
     else
-      flash[:alert] = 'Error! Could not save post.'
-      redirect_to root_path
+      redirect_to new_post_path, alert: 'Error! could not save post (Ensure Valid Entries)'
     end
   end
 
@@ -84,7 +82,7 @@ class PostsController < ApplicationController
   private
 
   def whitelist_post_params
-    params.require(:post).permit(:title, :body, :user_id, :status, :attachment)
+    params.require(:post).permit(:title, :user_id, :status, :attachment, :content)
   end
 
   def whitelist_edit_params

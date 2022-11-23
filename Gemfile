@@ -4,13 +4,16 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # User defined
+gem 'actiontext', github: 'kobaltz/actiontext', branch: 'archive', require: 'action_text'
 gem 'aws-sdk-s3'
 gem 'bootstrap', '~> 4.3.1'
 gem 'devise'
+gem 'image_processing'
 gem 'jquery-rails'
 gem 'pg'
 gem 'rails_admin', '~> 2.0'
 gem 'sprockets-rails', '~> 3.2'
+gem 'webpacker', '~> 4.x'
 
 # Defaults
 
