@@ -11,7 +11,6 @@ class Post < ApplicationRecord
 
   validates :title, :status, :user_id, presence: true
   validate :picture_only
-  validate :picture_size
 
   enum status: {
     pending: 0,
@@ -28,13 +27,12 @@ class Post < ApplicationRecord
   private
 
   def picture_only
+    return if attachment.present?
+
     extension = attachment.filename.to_s.split('.').last
     return if %w[svg eps tiff gif jpg jpeg png].include?(extension.downcase)
 
     errors.add(:attachment, 'Invalid Format')
-  end
-
-  def picture_size
     return unless attachment.byte_size > 4_000_000
 
     errors.add(:attachment, 'Error! file size too big')
